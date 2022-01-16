@@ -133,22 +133,22 @@ HW_SOURCE_FILE = __file__
 #         return 25
 
 
-def descending_coin(coin):
-    """Returns the next descending coin in order.
-    >>> descending_coin(25)
-    10
-    >>> descending_coin(10)
-    5
-    >>> descending_coin(5)
-    1
-    >>> descending_coin(2) # Other values return None
-    """
-    if coin == 25:
-        return 10
-    elif coin == 10:
-        return 5
-    elif coin == 5:
-        return 1
+# def descending_coin(coin):
+#     """Returns the next descending coin in order.
+#     >>> descending_coin(25)
+#     10
+#     >>> descending_coin(10)
+#     5
+#     >>> descending_coin(5)
+#     1
+#     >>> descending_coin(2) # Other values return None
+#     """
+#     if coin == 25:
+#         return 10
+#     elif coin == 10:
+#         return 5
+#     elif coin == 5:
+#         return 1
 
 
 # def count_coins(change):
@@ -176,78 +176,86 @@ def descending_coin(coin):
 #             return make_change(change, descending_coin(change_base), count_change_base(change_base, change, count))
 #     return make_change(change, change_base = max_change(change), count = 0)
 
-def max_change(change):
-    if change >= 25:
-        return 25
-    elif change >= 10:
-        return 10
-    elif change >= 5:
-        return 5
-    else:
-        return 1
+# def max_change(change):
+#     if change >= 25:
+#         return 25
+#     elif change >= 10:
+#         return 10
+#     elif change >= 5:
+#         return 5
+#     else:
+#         return 1
 
-def count_coins(change):
-    def make_change(change, base):
-        if change == 0:
-            return 1
-        elif change < 0:
-            return 0
-        elif base == 0:
-            return 0
-        elif base == 1:
-            return 1
-        else:
-            return make_change(change - base, base) + make_change(change, descending_coin(base))
-    return make_change(change, max_change(change))
+# def count_coins(change):
+#     def make_change(change, base):
+#         if change == 0:
+#             return 1
+#         elif change < 0:
+#             return 0
+#         elif base == 0:
+#             return 0
+#         elif base == 1:
+#             return 1
+#         else:
+#             return make_change(change - base, base) + make_change(change, descending_coin(base))
+#     return make_change(change, max_change(change))
 
-print(count_coins(5))
-# #     # 2
-print("counts are", count_coins(15))
-# #     # 6
-print(count_coins(10))
-# # #     # 4
-print("counts are", count_coins(20))
-# #     # 9
-print(count_coins(100)) # How many ways to make change for a dollar?
-# #     # 242
-print(count_coins(200))
+# print(count_coins(5))
+# # #     # 2
+# print("counts are", count_coins(15))
+# # #     # 6
+# print(count_coins(10))
+# # # #     # 4
+# print("counts are", count_coins(20))
+# # #     # 9
+# print(count_coins(100)) # How many ways to make change for a dollar?
+# # #     # 242
+# print(count_coins(200))
 #     # 1463
 
 
-# def print_move(origin, destination):
-#     """Print instructions to move a disk."""
-#     print("Move the top disk from rod", origin, "to rod", destination)
+def print_move(origin, destination):
+    """Print instructions to move a disk."""
+    print("Move the top disk from rod", origin, "to rod", destination)
 
 
-# def move_stack(n, start, end):
-#     """Print the moves required to move n disks on the start pole to the end
-#     pole without violating the rules of Towers of Hanoi.
+def move_stack(n, start, end):
+    """Print the moves required to move n disks on the start pole to the end
+    pole without violating the rules of Towers of Hanoi.
 
-#     n -- number of disks
-#     start -- a pole position, either 1, 2, or 3
-#     end -- a pole position, either 1, 2, or 3
+    n -- number of disks
+    start -- a pole position, either 1, 2, or 3
+    end -- a pole position, either 1, 2, or 3
 
-#     There are exactly three poles, and start and end must be different. Assume
-#     that the start pole has at least n disks of increasing size, and the end
-#     pole is either empty or has a top disk larger than the top n start disks.
+    There are exactly three poles, and start and end must be different. Assume
+    that the start pole has at least n disks of increasing size, and the end
+    pole is either empty or has a top disk larger than the top n start disks.
+    """
+    assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
+    if n == 1:
+        return print_move(start, end)
+    else:
+        move_stack(n - 1, start, empty(start, end))
+        move_stack(1, start, end)
+        move_stack(n - 1, empty(start, end), end)
 
-#     >>> move_stack(1, 1, 3)
-#     Move the top disk from rod 1 to rod 3
-#     >>> move_stack(2, 1, 3)
-#     Move the top disk from rod 1 to rod 2
-#     Move the top disk from rod 1 to rod 3
-#     Move the top disk from rod 2 to rod 3
-#     >>> move_stack(3, 1, 3)
-#     Move the top disk from rod 1 to rod 3
-#     Move the top disk from rod 1 to rod 2
-#     Move the top disk from rod 3 to rod 2
-#     Move the top disk from rod 1 to rod 3
-#     Move the top disk from rod 2 to rod 1
-#     Move the top disk from rod 2 to rod 3
-#     Move the top disk from rod 1 to rod 3
-#     """
-#     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-#     "*** YOUR CODE HERE ***"
+def empty(start, end):
+    return 6 - start - end 
+
+# move_stack(1, 1, 3)
+    # Move the top disk from rod 1 to rod 3
+# move_stack(2, 1, 3)
+    # Move the top disk from rod 1 to rod 2
+    # Move the top disk from rod 1 to rod 3
+    # Move the top disk from rod 2 to rod 3
+move_stack(3, 1, 3)
+    # Move the top disk from rod 1 to rod 3
+    # Move the top disk from rod 1 to rod 2
+    # Move the top disk from rod 3 to rod 2
+    # Move the top disk from rod 1 to rod 3
+    # Move the top disk from rod 2 to rod 1
+    # Move the top disk from rod 2 to rod 3
+    # Move the top disk from rod 1 to rod 3
 
 
 # from operator import sub, mul
