@@ -58,8 +58,6 @@ def max_product(s):
         return 1
     elif len(s) == 1:
         return s[0]
-    elif len(s) == 2:
-        return max(s[0], s[1])
     else:
         return max(s[0] * max_product(s[2:]), max_product(s[1:]))
 
