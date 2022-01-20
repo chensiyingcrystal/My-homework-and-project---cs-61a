@@ -291,56 +291,59 @@ def berry_finder(t):
         return True in [berry_finder(b) for b in branches(t)]
 
              
-scrat = tree('berry')
-print(berry_finder(scrat))
-    # True
-sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-print(berry_finder(sproul))
-    # True
-numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-print(berry_finder(numbers))
-    # False
-t = tree(1, [tree('berry',[tree('not berry')])])
-print(berry_finder(t))
-    # True
+# scrat = tree('berry')
+# print(berry_finder(scrat))
+#     # True
+# sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
+# print(berry_finder(sproul))
+#     # True
+# numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+# print(berry_finder(numbers))
+#     # False
+# t = tree(1, [tree('berry',[tree('not berry')])])
+# print(berry_finder(t))
+#     # True
 
 
 """Q7 Sprout leaves"""
 def sprout_leaves(t, leaves):
     """Sprout new leaves containing the data in leaves at each leaf in
-    the original tree t and return the resulting tree.
+    the original tree t and return the resulting tree."""
+    for b in branches(t):
+        if is_leaf(b):
+            b += [tree(leaf) for leaf in leaves]
+        else:
+            sprout_leaves(b, leaves)
+    return t
 
-    >>> t1 = tree(1, [tree(2), tree(3)])
-    >>> print_tree(t1)
-    1
-      2
-      3
-    >>> new1 = sprout_leaves(t1, [4, 5])
-    >>> print_tree(new1)
-    1
-      2
-        4
-        5
-      3
-        4
-        5
 
-    >>> t2 = tree(1, [tree(2, [tree(3)])])
-    >>> print_tree(t2)
-    1
-      2
-        3
-    >>> new2 = sprout_leaves(t2, [6, 1, 2])
-    >>> print_tree(new2)
-    1
-      2
-        3
-          6
-          1
-          2
-    """
-    "*** YOUR CODE HERE ***"
-
+# t1 = tree(1, [tree(2), tree(3)])
+# # print_tree(t1)
+#     # 1
+#     #   2
+#     #   3
+# new1 = sprout_leaves(t1, [4, 5])
+# print_tree(new1)
+#     # 1
+#     #   2
+#     #     4
+#     #     5
+#     #   3
+#     #     4
+#     #     5
+t2 = tree(1, [tree(2, [tree(3)])])
+# print_tree(t2)
+#     # 1
+#     #   2
+#     #     3
+new2 = sprout_leaves(t2, [6, 1, 2])
+print_tree(new2)
+    # 1
+    #   2
+    #     3
+    #       6
+    #       1
+    #       2
 # Abstraction tests for sprout_leaves and berry_finder
 
 
