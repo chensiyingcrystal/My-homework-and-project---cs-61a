@@ -14,7 +14,7 @@ def factors_list(n):
 
 """Q2: Flatten"""
 #Solution one
-def flatten(s, flat_list):       #the argument will have the memory problem
+def flatten(s, flat_list):       #flat_list should not have a default value, since the value will change with the name bount to it in the execution process
     """Returns a flattened version of list s."""
     for n in s:
         if type(n) == list:
