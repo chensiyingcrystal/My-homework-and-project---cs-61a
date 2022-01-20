@@ -13,15 +13,32 @@ def factors_list(n):
 #     # [1, 2, 4, 7, 14]
 
 """Q2: Flatten"""
-# def flatten(s, flat_list = []):       #the argument will have the memory problem
-#     """Returns a flattened version of list s."""
-#     for n in s:
-#         if type(n) == list:
-#             flatten(n, flat_list)
-#         else:
-#             flat_list += [n]
-#     return flat_list
+#Solution one
+def flatten(s, flat_list):       #the argument will have the memory problem
+    """Returns a flattened version of list s."""
+    for n in s:
+        if type(n) == list:
+            flatten(n, flat_list)
+        else:
+            flat_list += [n]
+    return flat_list
 
+
+# print(flatten([1, 2, 3], []))    # normal list
+#     # [1, 2, 3]
+# x = [1, [2, 3], 4]     # deep list
+# print(flatten(x, []))
+#     # [1, 2, 3, 4]
+# # print(x) # Ensure x is not mutated
+# #     # [1, [2, 3], 4]
+# x = [[1, [1, 1]], 1, [1, 1]] # deep list
+# print(flatten(x, []))
+#     # [1, 1, 1, 1, 1, 1]
+# # print(x)
+# #     # [[1, [1, 1]], 1, [1, 1]]
+
+
+#Solution two
 def flatten(lst):
     flatten_lst = []
     for item in lst:
