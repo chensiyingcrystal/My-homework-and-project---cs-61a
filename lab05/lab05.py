@@ -45,67 +45,24 @@ def flatten(lst):
 # # print(x)
 # #     # [[1, [1, 1]], 1, [1, 1]]
 
-
+"""Q3 Distance"""
 from math import sqrt
 
 
-def distance(city_a, city_b):
-    """
-    >>> city_a = make_city('city_a', 0, 1)
-    >>> city_b = make_city('city_b', 0, 2)
-    >>> distance(city_a, city_b)
-    1.0
-    >>> city_c = make_city('city_c', 6.5, 12)
-    >>> city_d = make_city('city_d', 2.5, 15)
-    >>> distance(city_c, city_d)
-    5.0
-    """
-    "*** YOUR CODE HERE ***"
-
-
-def closer_city(lat, lon, city_a, city_b):
-    """
-    Returns the name of either city_a or city_b, whichever is closest to
-    coordinate (lat, lon). If the two cities are the same distance away
-    from the coordinate, consider city_b to be the closer city.
-
-    >>> berkeley = make_city('Berkeley', 37.87, 112.26)
-    >>> stanford = make_city('Stanford', 34.05, 118.25)
-    >>> closer_city(38.33, 121.44, berkeley, stanford)
-    'Stanford'
-    >>> bucharest = make_city('Bucharest', 44.43, 26.10)
-    >>> vienna = make_city('Vienna', 48.20, 16.37)
-    >>> closer_city(41.29, 174.78, bucharest, vienna)
-    'Bucharest'
-    """
-    "*** YOUR CODE HERE ***"
-
-
-def check_city_abstraction():
-    """
-    There's nothing for you to do for this function, it's just here for the extra doctest
-    >>> change_abstraction(True)
-    >>> city_a = make_city('city_a', 0, 1)
-    >>> city_b = make_city('city_b', 0, 2)
-    >>> distance(city_a, city_b)
-    1.0
-    >>> city_c = make_city('city_c', 6.5, 12)
-    >>> city_d = make_city('city_d', 2.5, 15)
-    >>> distance(city_c, city_d)
-    5.0
-    >>> berkeley = make_city('Berkeley', 37.87, 112.26)
-    >>> stanford = make_city('Stanford', 34.05, 118.25)
-    >>> closer_city(38.33, 121.44, berkeley, stanford)
-    'Stanford'
-    >>> bucharest = make_city('Bucharest', 44.43, 26.10)
-    >>> vienna = make_city('Vienna', 48.20, 16.37)
-    >>> closer_city(41.29, 174.78, bucharest, vienna)
-    'Bucharest'
-    >>> change_abstraction(False)
-    """
-
 # Treat all the following code as being behind an abstraction layer,
 # you shouldn't need to look at it.
+
+def change_abstraction(change):
+    """
+    For testing purposes.
+    >>> change_abstraction(True)
+    >>> change_abstraction.changed
+    True
+    """
+    change_abstraction.changed = change
+
+
+change_abstraction.changed = False
 
 
 def make_city(name, lat, lon):
@@ -160,123 +117,77 @@ def get_lon(city):
         return city[2]
 
 
-def berry_finder(t):
-    """Returns True if t contains a node with the value 'berry' and 
-    False otherwise.
-
-    >>> scrat = tree('berry')
-    >>> berry_finder(scrat)
-    True
-    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-    >>> berry_finder(sproul)
-    True
-    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-    >>> berry_finder(numbers)
-    False
-    >>> t = tree(1, [tree('berry',[tree('not berry')])])
-    >>> berry_finder(t)
-    True
+"""Q3: Distance"""
+def distance(city_a, city_b):
     """
-    "*** YOUR CODE HERE ***"
-
-
-def sprout_leaves(t, leaves):
-    """Sprout new leaves containing the data in leaves at each leaf in
-    the original tree t and return the resulting tree.
-
-    >>> t1 = tree(1, [tree(2), tree(3)])
-    >>> print_tree(t1)
-    1
-      2
-      3
-    >>> new1 = sprout_leaves(t1, [4, 5])
-    >>> print_tree(new1)
-    1
-      2
-        4
-        5
-      3
-        4
-        5
-
-    >>> t2 = tree(1, [tree(2, [tree(3)])])
-    >>> print_tree(t2)
-    1
-      2
-        3
-    >>> new2 = sprout_leaves(t2, [6, 1, 2])
-    >>> print_tree(new2)
-    1
-      2
-        3
-          6
-          1
-          2
+    >>> city_a = make_city('city_a', 0, 1)
+    >>> city_b = make_city('city_b', 0, 2)
+    >>> distance(city_a, city_b)
+    1.0
+    >>> city_c = make_city('city_c', 6.5, 12)
+    >>> city_d = make_city('city_d', 2.5, 15)
+    >>> distance(city_c, city_d)
+    5.0
     """
-    "*** YOUR CODE HERE ***"
+    return sqrt((get_lat(city_a) - get_lat(city_b)) ** 2 + (get_lon(city_a) - get_lon(city_b)) ** 2)
 
-# Abstraction tests for sprout_leaves and berry_finder
+# city_a = make_city('city_a', 0, 1)
+# city_b = make_city('city_b', 0, 2)
+# print(distance(city_a, city_b))
+#     # 1.0
+# city_c = make_city('city_c', 6.5, 12)
+# city_d = make_city('city_d', 2.5, 15)
+# print(distance(city_c, city_d))
+#     # 5.0
 
 
-def check_abstraction():
+"""Q4: Closer city"""
+def closer_city(lat, lon, city_a, city_b):
+    """
+    Returns the name of either city_a or city_b, whichever is closest to
+    coordinate (lat, lon). If the two cities are the same distance away
+    from the coordinate, consider city_b to be the closer city."""
+    new_city = make_city("new", lat, lon)
+    disc_a = distance(new_city, city_a)
+    disc_b = distance(new_city, city_b)
+    if disc_a < disc_b:
+        return get_name(city_a)
+    else:
+        return get_name(city_b)
+    
+    
+# berkeley = make_city('Berkeley', 37.87, 112.26)
+# stanford = make_city('Stanford', 34.05, 118.25)
+# print(closer_city(38.33, 121.44, berkeley, stanford))
+#     # 'Stanford'
+# bucharest = make_city('Bucharest', 44.43, 26.10)
+# vienna = make_city('Vienna', 48.20, 16.37)
+# print(closer_city(41.29, 174.78, bucharest, vienna))
+#     # 'Bucharest' 
+
+
+def check_city_abstraction():
     """
     There's nothing for you to do for this function, it's just here for the extra doctest
     >>> change_abstraction(True)
-    >>> scrat = tree('berry')
-    >>> berry_finder(scrat)
-    True
-    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-    >>> berry_finder(sproul)
-    True
-    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-    >>> berry_finder(numbers)
-    False
-    >>> t = tree(1, [tree('berry',[tree('not berry')])])
-    >>> berry_finder(t)
-    True
-    >>> t1 = tree(1, [tree(2), tree(3)])
-    >>> print_tree(t1)
-    1
-      2
-      3
-    >>> new1 = sprout_leaves(t1, [4, 5])
-    >>> print_tree(new1)
-    1
-      2
-        4
-        5
-      3
-        4
-        5
-
-    >>> t2 = tree(1, [tree(2, [tree(3)])])
-    >>> print_tree(t2)
-    1
-      2
-        3
-    >>> new2 = sprout_leaves(t2, [6, 1, 2])
-    >>> print_tree(new2)
-    1
-      2
-        3
-          6
-          1
-          2
+    >>> city_a = make_city('city_a', 0, 1)
+    >>> city_b = make_city('city_b', 0, 2)
+    >>> distance(city_a, city_b)
+    1.0
+    >>> city_c = make_city('city_c', 6.5, 12)
+    >>> city_d = make_city('city_d', 2.5, 15)
+    >>> distance(city_c, city_d)
+    5.0
+    >>> berkeley = make_city('Berkeley', 37.87, 112.26)
+    >>> stanford = make_city('Stanford', 34.05, 118.25)
+    >>> closer_city(38.33, 121.44, berkeley, stanford)
+    'Stanford'
+    >>> bucharest = make_city('Bucharest', 44.43, 26.10)
+    >>> vienna = make_city('Vienna', 48.20, 16.37)
+    >>> closer_city(41.29, 174.78, bucharest, vienna)
+    'Bucharest'
     >>> change_abstraction(False)
     """
-
-
-def change_abstraction(change):
-    """
-    For testing purposes.
-    >>> change_abstraction(True)
-    >>> change_abstraction.changed
-    True
-    """
-    change_abstraction.changed = change
-
-
-change_abstraction.changed = False
 
 
 # Tree ADT
@@ -368,3 +279,114 @@ def copy_tree(t):
     5
     """
     return tree(label(t), [copy_tree(b) for b in branches(t)])
+
+
+"""Q6 Finding Berries"""
+def berry_finder(t):
+    """Returns True if t contains a node with the value 'berry' and 
+    False otherwise."""
+    if 'berry' == label(t):
+        return True
+    else:
+        return True in [berry_finder(b) for b in branches(t)]
+
+             
+scrat = tree('berry')
+print(berry_finder(scrat))
+    # True
+sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
+print(berry_finder(sproul))
+    # True
+numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+print(berry_finder(numbers))
+    # False
+t = tree(1, [tree('berry',[tree('not berry')])])
+print(berry_finder(t))
+    # True
+
+
+"""Q7 Sprout leaves"""
+def sprout_leaves(t, leaves):
+    """Sprout new leaves containing the data in leaves at each leaf in
+    the original tree t and return the resulting tree.
+
+    >>> t1 = tree(1, [tree(2), tree(3)])
+    >>> print_tree(t1)
+    1
+      2
+      3
+    >>> new1 = sprout_leaves(t1, [4, 5])
+    >>> print_tree(new1)
+    1
+      2
+        4
+        5
+      3
+        4
+        5
+
+    >>> t2 = tree(1, [tree(2, [tree(3)])])
+    >>> print_tree(t2)
+    1
+      2
+        3
+    >>> new2 = sprout_leaves(t2, [6, 1, 2])
+    >>> print_tree(new2)
+    1
+      2
+        3
+          6
+          1
+          2
+    """
+    "*** YOUR CODE HERE ***"
+
+# Abstraction tests for sprout_leaves and berry_finder
+
+
+def check_abstraction():
+    """
+    There's nothing for you to do for this function, it's just here for the extra doctest
+    >>> change_abstraction(True)
+    >>> scrat = tree('berry')
+    >>> berry_finder(scrat)
+    True
+    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
+    >>> berry_finder(sproul)
+    True
+    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+    >>> berry_finder(numbers)
+    False
+    >>> t = tree(1, [tree('berry',[tree('not berry')])])
+    >>> berry_finder(t)
+    True
+    >>> t1 = tree(1, [tree(2), tree(3)])
+    >>> print_tree(t1)
+    1
+      2
+      3
+    >>> new1 = sprout_leaves(t1, [4, 5])
+    >>> print_tree(new1)
+    1
+      2
+        4
+        5
+      3
+        4
+        5
+
+    >>> t2 = tree(1, [tree(2, [tree(3)])])
+    >>> print_tree(t2)
+    1
+      2
+        3
+    >>> new2 = sprout_leaves(t2, [6, 1, 2])
+    >>> print_tree(new2)
+    1
+      2
+        3
+          6
+          1
+          2
+    >>> change_abstraction(False)
+    """
