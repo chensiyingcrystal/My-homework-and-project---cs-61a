@@ -282,45 +282,53 @@ def has_path(t, word):
     return True in [has_path(b, word[1:]) for b in branches(t)]
         
     
-greetings = tree('h', [tree('i'),
-                        tree('e', [tree('l', [tree('l', [tree('o')])]),
-                                  tree('y')])])
-print_tree(greetings)
-    # h
-    #   i
-    #   e
-    #     l
-    #       l
-    #         o
-    #     y
-print(has_path(greetings, 'h'))
-    # True
-print(has_path(greetings, 'i'))
-    # False
-print(has_path(greetings, 'hi'))
-    # True
-print(has_path(greetings, 'hello'))
-    # True
-print(has_path(greetings, 'hey'))
-    # True
-print(has_path(greetings, 'bye'))
-    # False
-print(has_path(greetings, 'hint'))
-    # False
+# greetings = tree('h', [tree('i'),
+#                         tree('e', [tree('l', [tree('l', [tree('o')])]),
+#                                   tree('y')])])
+# print_tree(greetings)
+#     # h
+#     #   i
+#     #   e
+#     #     l
+#     #       l
+#     #         o
+#     #     y
+# print(has_path(greetings, 'h'))
+#     # True
+# print(has_path(greetings, 'i'))
+#     # False
+# print(has_path(greetings, 'hi'))
+#     # True
+# print(has_path(greetings, 'hello'))
+#     # True
+# print(has_path(greetings, 'hey'))
+#     # True
+# print(has_path(greetings, 'bye'))
+#     # False
+# print(has_path(greetings, 'hint'))
+#     # False
 
 
+"""Q7: Preorder"""
 def preorder(t):
     """Return a list of the entries in this tree in the order that they
-    would be visited by a preorder traversal (see problem description).
+    would be visited by a preorder traversal (see problem description)."""
+    if is_leaf(t):
+        return [label(t)]
+    new_t = [label(t)]
+    for b in branches(t):
+        new_t += preorder(b)
+    return new_t
 
-    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-    >>> preorder(numbers)
-    [1, 2, 3, 4, 5, 6, 7]
-    >>> preorder(tree(2, [tree(4, [tree(6)])]))
-    [2, 4, 6]
-    """
-    "*** YOUR CODE HERE ***"
 
+# numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+# print(preorder(numbers))
+#     # [1, 2, 3, 4, 5, 6, 7]
+# print(preorder(tree(2, [tree(4, [tree(6)])])))
+#     # [2, 4, 6]
+
+
+#Data Abstraction
 
 def str_interval(x):
     """Return a string representation of interval x."""
@@ -335,6 +343,7 @@ def add_interval(x, y):
     return interval(lower, upper)
 
 
+"""Q8: Interval Abstraction"""
 def interval(a, b):
     """Construct an interval from a to b."""
     assert a <= b, 'Lower bound cannot be greater than upper bound'
