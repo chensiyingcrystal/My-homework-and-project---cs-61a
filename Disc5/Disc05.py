@@ -1,3 +1,4 @@
+"""Q2: Height"""
 #Tree Data Abstraction
 def tree(root_label, branches=[]):
         for branch in branches:
@@ -26,7 +27,6 @@ def is_leaf(tree):
     return not branches(tree)
 
 
-"""Q2: Height"""
 def height(t):
     """Return the height of a tree."""
     if is_leaf(t):
