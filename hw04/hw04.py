@@ -1,6 +1,6 @@
 HW_SOURCE_FILE = __file__
-
-
+#Mobiles
+"""Q2 Weights"""
 def mobile(left, right):
     """Construct a mobile from a left arm and a right arm."""
     assert is_arm(left), "left must be a arm"
@@ -50,14 +50,14 @@ def end(s):
 
 def planet(size):
     """Construct a planet of some size."""
-    assert size > 0
-    "*** YOUR CODE HERE ***"
-
+    assert size > 0, "size must larger than 0"
+    return ['planet', size]
+    
 
 def size(w):
     """Select the size of a planet."""
     assert is_planet(w), 'must call size on a planet'
-    "*** YOUR CODE HERE ***"
+    return w[1]
 
 
 def is_planet(w):
@@ -97,27 +97,32 @@ def total_weight(m):
         return total_weight(end(left(m))) + total_weight(end(right(m)))
 
 
+"""Q3 Balanced"""
 def balanced(m):
-    """Return whether m is balanced.
+    """Return whether m is balanced."""
+    if is_planet(m):
+        return True
+    left_torque = length(left(m)) * total_weight(end(left(m)))
+    right_torque = length(right(m)) * total_weight(end(right(m)))
+    return left_torque == right_torque and balanced(end(left(m))) and balanced(end(right(m)))
 
-    >>> t, u, v = examples()
-    >>> balanced(t)
-    True
-    >>> balanced(v)
-    True
-    >>> w = mobile(arm(3, t), arm(2, u))
-    >>> balanced(w)
-    False
-    >>> balanced(mobile(arm(1, v), arm(1, w)))
-    False
-    >>> balanced(mobile(arm(1, w), arm(1, v)))
-    False
-    >>> from construct_check import check
-    >>> # checking for abstraction barrier violations by banning indexing
-    >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
-    True
-    """
-    "*** YOUR CODE HERE ***"
+
+# t, u, v = examples()
+# print(balanced(t))
+#     # True
+# print(balanced(v))
+#     # True
+# w = mobile(arm(3, t), arm(2, u))
+# print(balanced(w))
+#     # False
+# print(balanced(mobile(arm(1, v), arm(1, w))))
+#     # False
+# print(balanced(mobile(arm(1, w), arm(1, v))))
+#     # False
+# from construct_check import check
+# # checking for abstraction barrier violations by banning indexing
+# print(check(HW_SOURCE_FILE, 'balanced', ['Index']))
+#     # True
 
 
 def totals_tree(m):
