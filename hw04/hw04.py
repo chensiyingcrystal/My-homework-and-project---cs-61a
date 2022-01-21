@@ -196,6 +196,7 @@ def copy_tree(t):
     return tree(label(t), [copy_tree(b) for b in branches(t)])
 
 
+"""Q4 Totals"""
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root."""
     if is_planet(m):
@@ -231,70 +232,81 @@ def totals_tree(m):
 #     # True
 
 
+#More Trees
+
+"""Q5: Replace Loki at Leaf"""
 def replace_loki_at_leaf(t, lokis_replacement):
     """Returns a new tree where every leaf value equal to "loki" has
-    been replaced with lokis_replacement.
+    been replaced with lokis_replacement."""
+    new_t = copy_tree(t)
+    if is_leaf(new_t) and label(new_t) == 'loki':
+        new_t[0] = lokis_replacement
+        return new_t
+    return tree(label(new_t), [replace_loki_at_leaf(b, lokis_replacement) for b in branches(new_t)])
+    
 
-    >>> yggdrasil = tree('odin',
-    ...                  [tree('balder',
-    ...                        [tree('loki'),
-    ...                         tree('freya')]),
-    ...                   tree('frigg',
-    ...                        [tree('loki')]),
-    ...                   tree('loki',
-    ...                        [tree('sif'),
-    ...                         tree('loki')]),
-    ...                   tree('loki')])
-    >>> laerad = copy_tree(yggdrasil) # copy yggdrasil for testing purposes
-    >>> print_tree(replace_loki_at_leaf(yggdrasil, 'freya'))
-    odin
-      balder
-        freya
-        freya
-      frigg
-        freya
-      loki
-        sif
-        freya
-      freya
-    >>> laerad == yggdrasil # Make sure original tree is unmodified
-    True
-    """
-    "*** YOUR CODE HERE ***"
+# yggdrasil = tree('odin',
+#                  [tree('balder',
+#                        [tree('loki'),
+#                         tree('freya')]),
+#                   tree('frigg',
+#                        [tree('loki')]),
+#                   tree('loki',
+#                        [tree('sif'),
+#                          tree('loki')]),
+#                   tree('loki')])
+# laerad = copy_tree(yggdrasil) # copy yggdrasil for testing purposes
+# print_tree(replace_loki_at_leaf(yggdrasil, 'freya'))
+#     # odin
+#     #   balder
+#     #     freya
+#     #     freya
+#     #   frigg
+#     #     freya
+#     #   loki
+#     #     sif
+#     #     freya
+#     #   freya
+# print(laerad == yggdrasil) # Make sure original tree is unmodified
+#     # True
 
-
+    
 def has_path(t, word):
     """Return whether there is a path in a tree where the entries along the path
-    spell out a particular word.
-
-    >>> greetings = tree('h', [tree('i'),
-    ...                        tree('e', [tree('l', [tree('l', [tree('o')])]),
-    ...                                   tree('y')])])
-    >>> print_tree(greetings)
-    h
-      i
-      e
-        l
-          l
-            o
-        y
-    >>> has_path(greetings, 'h')
-    True
-    >>> has_path(greetings, 'i')
-    False
-    >>> has_path(greetings, 'hi')
-    True
-    >>> has_path(greetings, 'hello')
-    True
-    >>> has_path(greetings, 'hey')
-    True
-    >>> has_path(greetings, 'bye')
-    False
-    >>> has_path(greetings, 'hint')
-    False
-    """
+    spell out a particular word."""
     assert len(word) > 0, 'no path for empty word.'
-    "*** YOUR CODE HERE ***"
+    if not label(t) == word[0]:
+        return False
+    if label(t) == word[0] and len(word) == 1:
+        return True
+    return True in [has_path(b, word[1:]) for b in branches(t)]
+        
+    
+greetings = tree('h', [tree('i'),
+                        tree('e', [tree('l', [tree('l', [tree('o')])]),
+                                  tree('y')])])
+print_tree(greetings)
+    # h
+    #   i
+    #   e
+    #     l
+    #       l
+    #         o
+    #     y
+print(has_path(greetings, 'h'))
+    # True
+print(has_path(greetings, 'i'))
+    # False
+print(has_path(greetings, 'hi'))
+    # True
+print(has_path(greetings, 'hello'))
+    # True
+print(has_path(greetings, 'hey'))
+    # True
+print(has_path(greetings, 'bye'))
+    # False
+print(has_path(greetings, 'hint'))
+    # False
 
 
 def preorder(t):
