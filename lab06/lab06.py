@@ -56,42 +56,52 @@ def count_occurrences(t, n, x):
 
 
 s = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
-print(count_occurrences(s, 10, 9))
-    # 3
-s2 = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
-print(count_occurrences(s2, 3, 10))
-    # 2
-s = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
-print(count_occurrences(s, 1, 3))
-    # 1
-print(count_occurrences(s, 4, 2))
-    # 3
-print(next(s))
-    # 2
-s2 = iter([4, 1, 6, 6, 7, 7, 8, 8, 2, 2, 2, 5])
-print(count_occurrences(s2, 6, 6))
-    # 2
+# print(count_occurrences(s, 10, 9))
+#     # 3
+# s2 = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+# print(count_occurrences(s2, 3, 10))
+#     # 2
+# s = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
+# print(count_occurrences(s, 1, 3))
+#     # 1
+# print(count_occurrences(s, 4, 2))
+#     # 3
+# print(next(s))
+#     # 2
+# s2 = iter([4, 1, 6, 6, 7, 7, 8, 8, 2, 2, 2, 5])
+# print(count_occurrences(s2, 6, 6))
+#     # 2
 
+
+"""Q5: Repeated"""
 def repeated(t, k):
     """Return the first value in iterator T that appears K times in a row.
     Iterate through the items such that if the same iterator is passed into
     the function twice, it continues in the second call at the point it left
-    off in the first.
-
-    >>> s = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
-    >>> repeated(s, 2)
-    9
-    >>> s2 = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
-    >>> repeated(s2, 3)
-    8
-    >>> s = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
-    >>> repeated(s, 3)
-    2
-    >>> repeated(s, 3)
-    5
-    >>> s2 = iter([4, 1, 6, 6, 7, 7, 8, 8, 2, 2, 2, 5])
-    >>> repeated(s2, 3)
-    2
-    """
+    off in the first."""
     assert k > 1
-    "*** YOUR CODE HERE ***"
+    repeat_times, m = 1, next(t)
+    while repeat_times < k:
+        n = next(t)
+        if n == m:
+            repeat_times += 1
+        else:
+            repeat_times = 1
+        m = n
+    return m 
+
+        
+# s = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+# print(repeated(s, 2))
+#     # 9
+# s2 = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+# print(repeated(s2, 3))
+#     # 8
+# s = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
+# print(repeated(s, 3))
+#     # 2
+# print(repeated(s, 3))
+#     # 5
+# s2 = iter([4, 1, 6, 6, 7, 7, 8, 8, 2, 2, 2, 5])
+# print(repeated(s2, 3))
+#     # 2
