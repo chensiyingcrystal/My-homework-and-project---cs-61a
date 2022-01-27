@@ -96,9 +96,7 @@ def is_prime(n):
     return helper(2)
 
 def primes_gen(n):
-    """Generates primes in decreasing order.
-
-    """
+    """Generates primes in decreasing order."""
     if n <= 1:
         return
     if is_prime(n):
@@ -106,6 +104,19 @@ def primes_gen(n):
     yield from primes_gen(n - 1)
 
 
-pg = primes_gen(7)
-print(list(pg))
+# pg = primes_gen(7)
+# print(list(pg))
+#     # [7, 5, 3, 2]
+
+
+def primes_gen_ascend(n):
+    """Generates primes in increasing order."""
+    if n > 1:
+        yield from primes_gen_ascend(n - 1)
+        if is_prime(n):
+            yield n
+    
+
+dg = primes_gen_ascend(7)
+print(list(dg))
     # [7, 5, 3, 2]
