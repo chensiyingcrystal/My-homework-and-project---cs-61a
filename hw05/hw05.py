@@ -1,28 +1,39 @@
+"""Q1: Generate Permutations"""
 def gen_perms(seq):
     """Generates all permutations of the given sequence. Each permutation is a
     list of the elements in SEQ in a different order. The permutations may be
-    yielded in any order.
-
-    >>> perms = gen_perms([100])
-    >>> type(perms)
-    <class 'generator'>
-    >>> next(perms)
-    [100]
-    >>> try: #this piece of code prints "No more permutations!" if calling next would cause an error
-    ...     next(perms)
-    ... except StopIteration:
-    ...     print('No more permutations!')
-    No more permutations!
-    >>> sorted(gen_perms([1, 2, 3])) # Returns a sorted list containing elements of the generator
-    [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
-    >>> sorted(gen_perms((10, 20, 30)))
-    [[10, 20, 30], [10, 30, 20], [20, 10, 30], [20, 30, 10], [30, 10, 20], [30, 20, 10]]
-    >>> sorted(gen_perms("ab"))
-    [['a', 'b'], ['b', 'a']]
-    """
-    "*** YOUR CODE HERE ***"
+    yielded in any order. """
+    if not seq:
+        yield []
+        return
+    if len(seq) == 1:
+        yield seq
+    else:
+        for perm in gen_perms([x for x in seq if x != seq[0]]):
+            for k in range(len(perm) + 1):
+                yield perm[:k] + [seq[0]] + perm[k:]
 
 
+# # Tracing
+# perms = gen_perms([100])
+# print(type(perms))
+#     # <class 'generator'>
+# print(next(perms))
+#     # [100]
+# try: #this piece of code prints "No more permutations!" if calling next would cause an error
+#     next(perms)
+# except StopIteration:
+#     print('No more permutations!')
+#     # No more permutations!
+# print(list(gen_perms([1, 2, 3]))) # Returns a sorted list containing elements of the generator
+#     # [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+# print(sorted(gen_perms((10, 20, 30))))
+#     # [[10, 20, 30], [10, 30, 20], [20, 10, 30], [20, 30, 10], [30, 10, 20], [30, 20, 10]]
+# print(sorted(gen_perms("ab")))
+#     # [['a', 'b'], ['b', 'a']]
+
+
+"""Q2: Yield Paths"""
 def path_yielder(t, value):
     """Yields all possible paths from the root of t to a node with the label
     value as a list.
