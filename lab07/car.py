@@ -39,3 +39,50 @@ class MonsterTruck(Car):
     def drive(self):
         self.rev()
         return Car.drive(self)
+
+
+deneros_car = Car('Tesla', 'Model S')
+print(deneros_car.model)
+
+deneros_car.gas = 10
+print(deneros_car.drive())
+
+
+print(deneros_car.drive())
+
+
+print(deneros_car.fill_gas())
+
+
+print(deneros_car.gas)
+
+
+print(Car.gas)
+
+deneros_car = Car('Tesla', 'Model S')
+deneros_car.wheels = 2
+print(deneros_car.wheels)
+
+
+print(Car.num_wheels)
+
+
+print(deneros_car.drive())
+
+
+# print(Car.drive())
+
+
+print(Car.drive(deneros_car))
+
+deneros_car = MonsterTruck('Monster', 'Batmobile')
+print(deneros_car.drive())
+
+
+print(Car.drive(deneros_car))
+
+
+print(MonsterTruck.drive(deneros_car))
+
+
+# print(Car.rev(deneros_car))
